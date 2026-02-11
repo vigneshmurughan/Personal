@@ -1,0 +1,14 @@
+<%- include('partials_head', { title: 'Login' }) %>
+<div class="card">
+  <h1>Login</h1>
+  <p>Welcome back. Login to access your dashboard.</p>
+
+  <form method="post" action="/auth/login">
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+  </form>
+
+  <p class="small">Don't have an account? <a href="/register">Create one</a>.</p>
+</div>
+<%- include('partials_foot') %>
