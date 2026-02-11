@@ -1,0 +1,12 @@
+<%- include('partials_head', { title: 'Dashboard' }) %>
+<div class="card">
+  <h1>Dashboard</h1>
+  <p>Hello, <strong><%= user.name %></strong>.</p>
+  <p>You are authenticated and your session is stored in MongoDB.</p>
+  <p><strong>Email:</strong> <%= user.email %></p>
+
+  <form method="post" action="/auth/logout">
+    <button type="submit">Logout</button>
+  </form>
+</div>
+<%- include('partials_foot') %>
