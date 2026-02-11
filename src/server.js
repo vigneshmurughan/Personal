@@ -12,10 +12,16 @@ const pageRoutes = require('./routes/pageRoutes');
 const app = express();
 
 const PORT = Number(process.env.PORT) || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const IS_PRODUCTION = NODE_ENV === 'production';
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/auth_webapp';
 const SESSION_SECRET = process.env.SESSION_SECRET || 'replace-with-a-secure-secret';
 const MONGO_RETRY_ATTEMPTS = Number(process.env.MONGO_RETRY_ATTEMPTS) || 10;
 const MONGO_RETRY_DELAY_MS = Number(process.env.MONGO_RETRY_DELAY_MS) || 3000;
+
+if (IS_PRODUCTION) {
+  app.set('trust proxy', 1);
+}
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +40,8 @@ app.use(
     }),
     cookie: {
       httpOnly: true,
+      secure: IS_PRODUCTION,
+      sameSite: 'lax',
       maxAge: 1000 * 60 * 60
     }
   })
@@ -42,6 +50,10 @@ app.use(
 app.use((req, res, next) => {
   res.locals.currentUser = req.session.user || null;
   next();
+});
+
+app.get('/health', (_req, res) => {
+  res.status(200).json({ status: 'ok' });
 });
 
 app.use('/', pageRoutes);

@@ -60,10 +60,15 @@ docker compose down -v
 ## Environment variables
 
 - `PORT` - HTTP server port
+- `NODE_ENV` - `development` or `production`
 - `MONGO_URI` - MongoDB connection string
 - `SESSION_SECRET` - Session secret
 - `MONGO_RETRY_ATTEMPTS` - Mongo connection retries (useful in Docker startup)
 - `MONGO_RETRY_DELAY_MS` - Delay between retries in milliseconds
+
+## Health endpoint
+
+- `GET /health` - returns a JSON status payload for container/platform health checks
 
 ## Routes
 
