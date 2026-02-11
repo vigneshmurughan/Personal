@@ -1,0 +1,15 @@
+<%- include('partials_head', { title: 'Register' }) %>
+<div class="card">
+  <h1>Create account</h1>
+  <p>Register with name, email and password.</p>
+
+  <form method="post" action="/auth/register">
+    <input type="text" name="name" placeholder="Full name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password (min 6 chars)" minlength="6" required />
+    <button type="submit">Register</button>
+  </form>
+
+  <p class="small">Already have an account? <a href="/login">Login</a>.</p>
+</div>
+<%- include('partials_foot') %>
