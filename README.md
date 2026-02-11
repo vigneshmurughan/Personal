@@ -78,3 +78,23 @@ docker compose down -v
 - `POST /auth/register` - Register user
 - `POST /auth/login` - Login user
 - `POST /auth/logout` - Logout user
+
+## Docker image publishing (GitHub Container Registry)
+
+A GitHub Actions workflow is included at `.github/workflows/docker-image.yml`.
+
+- It runs on pushes to `main`, tags matching `v*.*.*`, and manual dispatch.
+- It builds the app image and pushes it to:
+  - `ghcr.io/<owner>/auth-mongodb-webapp`
+- Published tags include `latest` (default branch), branch/tag refs, and commit SHA.
+
+### Pulling the image
+
+Once package visibility is set to **Public** in GitHub Packages, anyone can pull:
+
+```bash
+docker pull ghcr.io/<owner>/auth-mongodb-webapp:latest
+```
+
+> Note: First publish may appear as private by default depending on your org/repo package settings.
+> You can switch it to Public in GitHub: **Packages → auth-mongodb-webapp → Package settings → Change visibility**.
